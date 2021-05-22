@@ -75,36 +75,120 @@ public class Card {
         return rank + " of " + suit; 
     }
 
-    public Card(Rank rank, Suit suit, boolean fu, boolean fd)
+    private boolean jokerCheck()
     {
-        this.rank = rank;
-        this.suit = suit;
-
-        if(fu==fd)
+        if(rank == Rank.JOKER)
         {
-            throw new IllegalArgumentException("faceup and facedown cannot be same for a card");
+            if(suit == Suit.NONE)
+            {
+                return true;
+            }
+            else
+            {
+                throw new IllegalArgumentException("Joker must have a NONE Suit type");
+            }
         }
         else
         {
-            facedown = fu;
-            faceup = fd;
+            return true;
+        }
+    }
+
+    public static boolean jokerCheck(Card c)
+    {
+        if(c.rank() == Rank.JOKER)
+        {
+            if(c.suit() == Suit.NONE)
+            {
+                return true;
+            }
+            else
+            {
+                throw new IllegalArgumentException("Joker must have a NONE Suit type");
+            }
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public static boolean jokerCheck(Rank r, Suit s)
+    {
+        if(r == Rank.JOKER)
+        {
+            if(s == Suit.NONE)
+            {
+                return true;
+            }
+            else
+            {
+                throw new IllegalArgumentException("Joker must have a NONE Suit type");
+            }
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public Card(Rank rank, Suit suit, boolean fu, boolean fd)
+    {
+        if(rank != null && suit != null)
+        {
+            this.rank = rank;
+            this.suit = suit;
+
+            if(fu==fd)
+            {
+                throw new IllegalArgumentException("faceup and facedown cannot be same for a card");
+            }
+            else
+            {
+                facedown = fu;
+                faceup = fd;
+            }
+
+            jokerCheck();
+        }
+        else
+        {
+            throw new IllegalArgumentException("Rank: " + rank + " and/or Suit: " + suit + " is null. Invalid Card input arguments");
         }
     }
 
     public Card(Rank rank, Suit suit)
     {
-        this.rank = rank;
-        this.suit = suit;
-        facedown = true;
-        faceup = false;
+        if(rank != null && suit != null)
+        {
+            this.rank = rank;
+            this.suit = suit;
+            facedown = true;
+            faceup = false;
+
+            jokerCheck();
+        }
+        else
+        {
+            throw new IllegalArgumentException("Rank: " + rank + " and/or Suit: " + suit + " is null. Invalid Card input arguments");
+        }
     }
 
     public Card(Rank rank)
     {
-        this.rank = rank;
-        this.suit = Card.Suit.NONE;
-        facedown = true;
-        faceup = false;
+        if(rank!=null)
+        {
+            this.rank = rank;
+            this.suit = Card.Suit.NONE;
+            facedown = true;
+            faceup = false;
+
+            jokerCheck();
+        }
+        else
+        {
+            throw new IllegalArgumentException("Card rank cannot be null. Invalid Card input arguments."); 
+        }
     }
 
 }
