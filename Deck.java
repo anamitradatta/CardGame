@@ -167,6 +167,7 @@ public class Deck {
         Deck newDeck = emptyDeck();
         newDeck.addCards(cards);
         newDeck.addCards(d.cards);
+        d.removeAllCards();
         return newDeck;
     }
 
